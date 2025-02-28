@@ -300,3 +300,106 @@ Se han establecido relaciones mediante claves foráneas (FK) para garantizar la 
 
 - El campo `id_cliente` en MANTENIMIENTO es opcional (puede ser NULL) para permitir mantenimientos a vehículos no vendidos.
 - El campo `disponible` en VEHICULO debe actualizarse automáticamente a FALSE cuando el vehículo se incluye en una venta.
+
+# Script SQL Para Creación De Entidades y Relaciones
+
+```sql
+CREATE TABLE MARCA (
+    id_marca INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(255) UNIQUE NOT NULL
+);
+
+CREATE TABLE MODELO (
+    id_modelo INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(255) NOT NULL,
+    id_marca INT NOT NULL,
+    FOREIGN KEY (id_marca) REFERENCES MARCA(id_marca)
+);
+
+CREATE TABLE TIPO_COMBUSTIBLE (
+    id_tipo_combustible INT PRIMARY KEY AUTO_INCREMENT,
+    descripcion VARCHAR(255) UNIQUE NOT NULL
+);
+
+CREATE TABLE TIPO_TRANSMISION (
+    id_tipo_transmision INT PRIMARY KEY AUTO_INCREMENT,
+    descripcion VARCHAR(255) UNIQUE NOT NULL
+);
+
+CREATE TABLE METODO_PAGO (
+    id_metodo_pago INT PRIMARY KEY AUTO_INCREMENT,
+    descripcion VARCHAR(255) UNIQUE NOT NULL
+);
+
+CREATE TABLE TIPO_SERVICIO (
+    id_tipo_servicio INT PRIMARY KEY AUTO_INCREMENT,
+    descripcion VARCHAR(255) UNIQUE NOT NULL
+);
+
+CREATE TABLE VEHICULO (
+    id_vehiculo INT PRIMARY KEY AUTO_INCREMENT,
+    vin VARCHAR(50) UNIQUE NOT NULL,
+    id_modelo INT NOT NULL,
+    anio INT NOT NULL,
+    precio DECIMAL(10,2) NOT NULL,
+    color VARCHAR(50) NOT NULL,
+    id_tipo_combustible INT NOT NULL,
+    id_tipo_transmision INT NOT NULL,
+    estado ENUM('Nuevo', 'Usado') NOT NULL,
+    disponible BOOLEAN NOT NULL DEFAULT TRUE,
+    FOREIGN KEY (id_modelo) REFERENCES MODELO(id_modelo),
+    FOREIGN KEY (id_tipo_combustible) REFERENCES TIPO_COMBUSTIBLE(id_tipo_combustible),
+    FOREIGN KEY (id_tipo_transmision) REFERENCES TIPO_TRANSMISION(id_tipo_transmision)
+);
+
+CREATE TABLE CLIENTE (
+    id_cliente INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(255) NOT NULL,
+    apellido VARCHAR(255) NOT NULL,
+    telefono VARCHAR(20) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    direccion VARCHAR(255)
+);
+
+CREATE TABLE VENDEDOR (
+    id_vendedor INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(255) NOT NULL,
+    apellido VARCHAR(255) NOT NULL,
+    num_empleado VARCHAR(50) UNIQUE NOT NULL,
+    fecha_contratacion DATE NOT NULL
+);
+
+CREATE TABLE VENTA (
+    id_venta INT PRIMARY KEY AUTO_INCREMENT,
+    fecha DATE NOT NULL,
+    total_transaccion DECIMAL(10,2) NOT NULL,
+    id_metodo_pago INT NOT NULL,
+    id_cliente INT NOT NULL,
+    id_vendedor INT NOT NULL,
+    FOREIGN KEY (id_metodo_pago) REFERENCES METODO_PAGO(id_metodo_pago),
+    FOREIGN KEY (id_cliente) REFERENCES CLIENTE(id_cliente),
+    FOREIGN KEY (id_vendedor) REFERENCES VENDEDOR(id_vendedor)
+);
+
+CREATE TABLE DETALLE_VENTA (
+    id_detalle_venta INT PRIMARY KEY AUTO_INCREMENT,
+    id_venta INT NOT NULL,
+    id_vehiculo INT NOT NULL,
+    precio_venta DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (id_venta) REFERENCES VENTA(id_venta),
+    FOREIGN KEY (id_vehiculo) REFERENCES VEHICULO(id_vehiculo)
+);
+
+CREATE TABLE MANTENIMIENTO (
+    id_mantenimiento INT PRIMARY KEY AUTO_INCREMENT,
+    fecha DATE NOT NULL,
+    id_tipo_servicio INT NOT NULL,
+    descripcion TEXT NOT NULL,
+    costo DECIMAL(10,2) NOT NULL,
+    id_vehiculo INT NOT NULL,
+    id_cliente INT NULL,
+    FOREIGN KEY (id_tipo_servicio) REFERENCES TIPO_SERVICIO(id_tipo_servicio),
+    FOREIGN KEY (id_vehiculo) REFERENCES VEHICULO(id_vehiculo),
+    FOREIGN KEY (id_cliente) REFERENCES CLIENTE(id_cliente)
+);
+```
