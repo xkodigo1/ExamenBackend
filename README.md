@@ -5,7 +5,9 @@
 
 Este documento describe el diseño de una base de datos relacional para un concesionario de vehículos. La base de datos ha sido diseñada para gestionar la información sobre vehículos en stock, clientes, ventas y servicios de mantenimiento.
 
-## 2. Diagrama Entidad-Relación
+## 2. Diagramas
+![Diagrama ER](https://mermaid.live/view#pako:eNp9klFvgjAQx78K6bMaEajKG0KzNQFqAH1YTEwHFZshNQjJlPndVx0qRl3frv39r_e_uxrEImHABKxwOE0LulnkijyeFdiW8vPT7Ypa8YiDXKKYygKUnOVsARro776h5ugd27OGi2nJUlHwA73AEZ6SpU28ySyM8MRFz2UZ3fEVj-9VUWD5oYdDTPynqoSt-K0q28XIj1r5_cg6YwWjWasgD0XEIcup9UYe2arkbVY-OMghwSOYsl3JRd4mo2vjHBRZrouWNzwW-V0Lrz5eKngeZxVPhMLyVyLPkn597J18k8ZqzD9fdeQR34mMx7y873qIgjm28T-_tIcMOmDDig3liVym-pRGLsuabWQR5xHR4uuU_Sg5WpUi3OcxMMuiYh1QiCpdA3NFs52Mqm0i0zbLeEG2NP8Qoh0CswbfwFQ1tacOjMFIgwaExqAD9sAc9zR1oEFdG2pQM1QIjx1wOMv7vZGuw74-hv2hro7VvnH8BRgb5AY)
+
 
 El siguiente diagrama muestra la estructura general de la base de datos normalizada:
 
