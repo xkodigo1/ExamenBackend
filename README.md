@@ -306,6 +306,10 @@ Se han establecido relaciones mediante claves foráneas (FK) para garantizar la 
 # Script SQL Para Creación De Entidades y Relaciones
 
 ```sql
+CREATE DATABASE concesionario;
+
+USE concesionario;
+
 CREATE TABLE MARCA (
     id_marca INT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(255) UNIQUE NOT NULL
